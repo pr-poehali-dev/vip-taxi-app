@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import BookingForm from '@/components/BookingForm';
 
 const Index = () => {
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
+  const [showBookingForm, setShowBookingForm] = useState(false);
 
   const carClasses = [
     {
@@ -32,6 +34,19 @@ const Index = () => {
       icon: 'Sparkles'
     }
   ];
+
+  if (showBookingForm && selectedClass) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+        <div className="container mx-auto px-4 py-16">
+          <BookingForm
+            selectedClass={selectedClass}
+            onBack={() => setShowBookingForm(false)}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
@@ -104,6 +119,7 @@ const Index = () => {
             <Button
               size="lg"
               className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-12 py-6 text-xl"
+              onClick={() => setShowBookingForm(true)}
             >
               Продолжить бронирование
             </Button>
